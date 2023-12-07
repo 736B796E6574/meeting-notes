@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,12 +12,27 @@
         cursor: pointer; /* Style for toggle icon */
       }
     </style>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
   </head>
   <body>
-    <h1>Add a Note</h1>
+    <nav>
+      <img class="nav__logo" src="{% static 'images/cilogo2.png' %}" alt="" />
+      <h1>Bootcamp Meeting Notes</h1>
+    </nav>
+    <hr />
+
+    <button class="toggle-icon" onclick="toggleMeetingForm()">[+]</button> Add a
+    Meeting
+
+    <div id="meetingForm">
+      <form method="post">
+        {% csrf_token %} {{ meeting_form.as_p }}
+        <button type="submit" name="meeting_submit">Add Meeting</button>
+      </form>
+    </div>
     <form method="post">
       {% csrf_token %} {{ note_form.as_p }}
-      <button type="submit">Add Note</button>
+      <button type="submit" name="note_submit">Add Note</button>
     </form>
 
     <h2>Last 5 Notes</h2>
@@ -29,16 +45,6 @@
     {% if next_meeting %}
     <h2>Next Meeting: {{ next_meeting.name }} - {{ next_meeting.time }}</h2>
     {% endif %}
-
-    <button class="toggle-icon" onclick="toggleMeetingForm()">[+]</button> Add a
-    Meeting
-
-    <div id="meetingForm">
-      <form method="post">
-        {% csrf_token %} {{ meeting_form.as_p }}
-        <button type="submit" name="meeting_submit">Add Meeting</button>
-      </form>
-    </div>
 
     <script>
       function toggleMeetingForm() {

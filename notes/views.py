@@ -25,8 +25,12 @@ def home(request):
         if 'note_submit' in request.POST:
             note_form = NoteForm(request.POST)
             if note_form.is_valid():
-                note_form.save()
+                note = note_form.save(commit=False)
+                note.user = request.user  # Set the user before saving
+                note.save()
                 return redirect('home')
+            else:
+                print(note_form.errors)
         elif 'meeting_submit' in request.POST:
             meeting_form = MeetingForm(request.POST)
             if meeting_form.is_valid():
