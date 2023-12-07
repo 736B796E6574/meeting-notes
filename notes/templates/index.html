@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Class Notes</title>
+    <style>
+      #meetingForm {
+        display: none; /* Initially hide the meeting form */
+      }
+      .toggle-icon {
+        cursor: pointer; /* Style for toggle icon */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Add a Note</h1>
+    <form method="post">
+      {% csrf_token %} {{ note_form.as_p }}
+      <!-- Render the note form -->
+      <button type="submit">Add Note</button>
+    </form>
+
+    <h2>Last 5 Notes</h2>
+    <ul>
+      {% for note in last_notes %}
+      <li>{{ note.title }} - {{ note.created_at|date:"DATETIME_FORMAT" }}</li>
+      {% endfor %}
+    </ul>
+
+    {% if next_meeting %}
+    <h2>
+      Next Meeting: {{ next_meeting.name }} - {{
+      next_meeting.time|date:"DATETIME_FORMAT" }}
+    </h2>
+    {% endif %}
+
+    <!-- Button to toggle meeting form -->
+    <button class="toggle-icon" onclick="toggleMeetingForm()">[+]</button> Add a
+    Meeting
+
+    <!-- Meeting form initially hidden -->
+    <div id="meetingForm">
+      <form method="post">
+        {% csrf_token %} {{ meeting_form.as_p }}
+        <!-- Render the meeting form -->
+        <button type="submit" name="meeting_submit">Add Meeting</button>
+      </form>
+    </div>
+
+    <script>
+      function toggleMeetingForm() {
+        var form = document.getElementById("meetingForm");
+        form.style.display = form.style.display === "none" ? "block" : "none";
+      }
+    </script>
+  </body>
+</html>
