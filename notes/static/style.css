@@ -31,3 +31,36 @@ hr {
   border: 2px solid #e84610;
   margin: 0 50px;
 }
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+  color: #484949;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+.forms__container {
+  display: flex;
+  justify-content: space-around;
+  margin: 50px;
+}
+
+.plus-icon {
+  color: #32bbbb;
+  font-size: 2rem;
+}
+
+.toggle-icon {
+  background-color: white;
+  border: none;
+}
+
+.meeting__container p {
+  font-weight: bold;
+  color: #484949;
+}
+
+.meeting__add-meeting {
+  display: flex;
+}

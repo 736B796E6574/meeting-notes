@@ -13,6 +13,10 @@
       }
     </style>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <script
+      src="https://kit.fontawesome.com/1796d285ac.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <nav>
@@ -20,31 +24,40 @@
       <h1>Bootcamp Meeting Notes</h1>
     </nav>
     <hr />
-
-    <button class="toggle-icon" onclick="toggleMeetingForm()">[+]</button> Add a
-    Meeting
-
-    <div id="meetingForm">
-      <form method="post">
-        {% csrf_token %} {{ meeting_form.as_p }}
-        <button type="submit" name="meeting_submit">Add Meeting</button>
-      </form>
-    </div>
-    <form method="post">
-      {% csrf_token %} {{ note_form.as_p }}
-      <button type="submit" name="note_submit">Add Note</button>
-    </form>
-
-    <h2>Last 5 Notes</h2>
-    <ul>
-      {% for note in last_notes %}
-      <li>{{ note.title }} - {{ note.created_at|date:"Y-m-d H:i" }}</li>
-      {% endfor %}
-    </ul>
-
     {% if next_meeting %}
-    <h2>Next Meeting: {{ next_meeting.name }} - {{ next_meeting.time }}</h2>
+    <h2 class="banner__next-meeting">
+      Next Scheduled Meeting: {{ next_meeting.name }} - {{ next_meeting.time }}
+    </h2>
     {% endif %}
+    <div class="forms__container">
+      <div class="meeting__container">
+        <div class="meeting__add-meeting">
+          <button class="toggle-icon" onclick="toggleMeetingForm()">
+            <i class="plus-icon fas fa-plus-square"></i>
+          </button>
+          <p>Add a Meeting to your Schedule</p>
+        </div>
+
+        <div id="meetingForm">
+          <form method="post">
+            {% csrf_token %} {{ meeting_form.as_p }}
+            <button type="submit" name="meeting_submit">Add Meeting</button>
+          </form>
+        </div>
+
+        <form method="post">
+          {% csrf_token %} {{ note_form.as_p }}
+          <button type="submit" name="note_submit">Add Note</button>
+        </form>
+      </div>
+
+      <h2>Last 5 Notes</h2>
+      <ul>
+        {% for note in last_notes %}
+        <li>{{ note.title }} - {{ note.created_at|date:"Y-m-d H:i" }}</li>
+        {% endfor %}
+      </ul>
+    </div>
 
     <script>
       function toggleMeetingForm() {
