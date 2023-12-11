@@ -4,19 +4,20 @@
   <head>
     <meta charset="UTF-8" />
     <title>Class Notes</title>
-    <style>
-      #meetingForm {
-        display: none; /* Initially hide the meeting form */
-      }
-      .toggle-icon {
-        cursor: pointer; /* Style for toggle icon */
-      }
-    </style>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
     <script
       src="https://kit.fontawesome.com/1796d285ac.js"
       crossorigin="anonymous"
     ></script>
+    <style>
+      #meetingForm,
+      #editMeetingForm {
+        display: none;
+      }
+      .toggle-icon {
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <nav>
@@ -37,20 +38,24 @@
           </button>
           <p>Add a recurring meeting</p>
         </div>
-
         <div id="meetingForm">
           <form method="post">
             {% csrf_token %} {{ meeting_form.as_p }}
             <button type="submit" name="meeting_submit">Save Meeting</button>
           </form>
         </div>
-
+        <div id="editMeetingForm">
+          <form method="post">
+            {% csrf_token %} {{ meeting_form.as_p }}
+            <input type="hidden" name="meeting_id" id="editMeetingId" />
+            <button type="submit" name="meeting_submit">Update Meeting</button>
+          </form>
+        </div>
         <form method="post">
           {% csrf_token %} {{ note_form.as_p }}
           <button type="submit" name="note_submit">Save Note</button>
         </form>
       </div>
-
       <h2>Last 5 Notes</h2>
       <ul>
         {% for note in last_notes %}
@@ -58,11 +63,61 @@
         {% endfor %}
       </ul>
     </div>
-
+    <div class="saved-meetings">
+      <h2>Saved Meetings</h2>
+      <ul>
+        {% for meeting in saved_meetings %}
+        <li>
+          {{ meeting.name }} - {{ meeting.time|date:"Y-m-d H:i" }}
+          <button onclick="editMeeting({{ meeting.id }})">Edit</button> |
+          <a
+            href="{% url 'delete_meeting' meeting.id %}"
+            onclick="return confirm('Are you sure?');"
+            >Delete</a
+          >
+        </li>
+        {% empty %}
+        <li>No saved meetings</li>
+        {% endfor %}
+      </ul>
+    </div>
     <script>
       function toggleMeetingForm() {
         var form = document.getElementById("meetingForm");
         form.style.display = form.style.display === "none" ? "block" : "none";
+      }
+
+      function editMeeting(meetingId) {
+        fetch(`/get-meeting-data/${meetingId}/`, {
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Use the correct IDs for your form fields here
+            document.querySelector(
+              "#editMeetingForm input[name='name']"
+            ).value = data.name;
+            document.querySelector(
+              "#editMeetingForm input[name='time']"
+            ).value = data.time;
+            document.querySelector(
+              "#editMeetingForm select[name='frequency']"
+            ).value = data.frequency;
+            document.querySelector(
+              "#editMeetingForm input[name='meeting_id']"
+            ).value = data.id;
+
+            // Display the editMeetingForm
+            document.getElementById("editMeetingForm").style.display = "block";
+          })
+          .catch((error) => console.error("Error:", error));
       }
     </script>
   </body>
