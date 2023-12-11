@@ -30,57 +30,78 @@
       Next Scheduled Meeting: {{ next_meeting.name }} - {{ next_meeting.time }}
     </h2>
     {% endif %}
+
     <div class="forms__container">
-      <div class="meeting__container">
-        <div class="meeting__add-meeting">
-          <button class="toggle-icon" onclick="toggleMeetingForm()">
-            <i class="plus-icon fas fa-plus-square"></i>
-          </button>
-          <p>Add a recurring meeting</p>
+      <div class="saved-meetings">
+        <h2>Saved Meetings</h2>
+        <div class="meeting__container">
+          <div class="meeting__add-meeting">
+            <button class="toggle-icon" onclick="toggleMeetingForm()">
+              <i class="plus-icon fas fa-plus-square"></i>
+            </button>
+            <p>Add a recurring meeting</p>
+          </div>
+          <div id="meetingForm">
+            <form method="post">
+              {% csrf_token %} {{ meeting_form.as_p }}
+              <button type="submit" name="meeting_submit">Save Meeting</button>
+            </form>
+          </div>
+          <div id="editMeetingForm">
+            <form method="post">
+              {% csrf_token %} {{ meeting_form.as_p }}
+              <input type="hidden" name="meeting_id" id="editMeetingId" />
+              <button type="submit" name="meeting_submit">
+                Update Meeting
+              </button>
+            </form>
+          </div>
         </div>
-        <div id="meetingForm">
-          <form method="post">
-            {% csrf_token %} {{ meeting_form.as_p }}
-            <button type="submit" name="meeting_submit">Save Meeting</button>
-          </form>
-        </div>
-        <div id="editMeetingForm">
-          <form method="post">
-            {% csrf_token %} {{ meeting_form.as_p }}
-            <input type="hidden" name="meeting_id" id="editMeetingId" />
-            <button type="submit" name="meeting_submit">Update Meeting</button>
-          </form>
-        </div>
+        <ul>
+          {% for meeting in saved_meetings %}
+          <li>
+            <button
+              class="meeting__edit-button"
+              onclick="editMeeting({{ meeting.id }})"
+            >
+              Edit
+            </button>
+            |
+            <a
+              class="meeting__delete-button"
+              href="{% url 'delete_meeting' meeting.id %}"
+              onclick="return confirm('Are you sure?');"
+              >Delete</a
+            >
+            {{ meeting.name }}
+          </li>
+          {% empty %}
+          <li>No saved meetings</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h2>Add a note</h2>
         <form method="post">
           {% csrf_token %} {{ note_form.as_p }}
           <button type="submit" name="note_submit">Save Note</button>
         </form>
       </div>
-      <h2>Last 5 Notes</h2>
-      <ul>
-        {% for note in last_notes %}
-        <li>{{ note.title }} - {{ note.created_at|date:"Y-m-d H:i" }}</li>
-        {% endfor %}
-      </ul>
+      <div>
+        <h2>Recent Topics</h2>
+        <ul>
+          {% for note in last_notes %}
+          <li>
+            <h3>{{ note.meeting }}</h3>
+            <p>{{ note.title }}</p>
+          </li>
+          <hr class="notes__hr" />
+
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-    <div class="saved-meetings">
-      <h2>Saved Meetings</h2>
-      <ul>
-        {% for meeting in saved_meetings %}
-        <li>
-          {{ meeting.name }} - {{ meeting.time|date:"Y-m-d H:i" }}
-          <button onclick="editMeeting({{ meeting.id }})">Edit</button> |
-          <a
-            href="{% url 'delete_meeting' meeting.id %}"
-            onclick="return confirm('Are you sure?');"
-            >Delete</a
-          >
-        </li>
-        {% empty %}
-        <li>No saved meetings</li>
-        {% endfor %}
-      </ul>
-    </div>
+
     <script>
       function toggleMeetingForm() {
         var form = document.getElementById("meetingForm");

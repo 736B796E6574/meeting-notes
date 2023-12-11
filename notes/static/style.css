@@ -73,3 +73,45 @@ form button {
   font-weight: 500;
   color: white;
 }
+
+.meeting__delete-button {
+  background-color: #e84610;
+  padding: 4px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: antiquewhite;
+}
+
+.meeting__edit-button {
+  background-color: #e86e45;
+  padding: 4px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: antiquewhite;
+  border: none;
+}
+
+.saved-meetings li {
+  margin: 10px;
+}
+
+.saved-meetings ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+h3 {
+  color: #e84610;
+}
+
+.notes__hr {
+  border: 1px solid #32bbbb;
+}
