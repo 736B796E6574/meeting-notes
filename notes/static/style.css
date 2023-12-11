@@ -64,3 +64,12 @@ h2 {
 .meeting__add-meeting {
   display: flex;
 }
+
+form button {
+  background-color: #e84610;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 500;
+  color: white;
+}

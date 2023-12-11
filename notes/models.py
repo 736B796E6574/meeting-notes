@@ -7,6 +7,9 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.db import models
+from django.contrib.auth.models import User
+
 class Meeting(models.Model):
     FREQUENCY_CHOICES = [
         ('daily', 'Daily'),
@@ -16,12 +19,15 @@ class Meeting(models.Model):
         ('one_time', 'One Time Only'),
     ]
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
     name = models.CharField(max_length=100)
     time = models.DateTimeField()
     frequency = models.CharField(max_length=50, choices=FREQUENCY_CHOICES, default='one_time')
 
     def __str__(self):
         return self.name
+
 
 
 class Note(models.Model):

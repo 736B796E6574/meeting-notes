@@ -35,19 +35,19 @@
           <button class="toggle-icon" onclick="toggleMeetingForm()">
             <i class="plus-icon fas fa-plus-square"></i>
           </button>
-          <p>Add a Meeting to your Schedule</p>
+          <p>Add a recurring meeting</p>
         </div>
 
         <div id="meetingForm">
           <form method="post">
             {% csrf_token %} {{ meeting_form.as_p }}
-            <button type="submit" name="meeting_submit">Add Meeting</button>
+            <button type="submit" name="meeting_submit">Save Meeting</button>
           </form>
         </div>
 
         <form method="post">
           {% csrf_token %} {{ note_form.as_p }}
-          <button type="submit" name="note_submit">Add Note</button>
+          <button type="submit" name="note_submit">Save Note</button>
         </form>
       </div>
 
