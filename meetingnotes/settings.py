@@ -20,7 +20,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEV")
 
-ALLOWED_HOSTS = ['8000-736b796e657-meetingnote-3zabhsx19nv.ws-eu106.gitpod.io']
+ALLOWED_HOSTS = ['8000-736b796e657-meetingnote-3zabhsx19nv.ws-eu106.gitpod.io', 'meeting-ci-notes.onrender.com']
 
 
 # Application definition
