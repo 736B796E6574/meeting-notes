@@ -7,7 +7,7 @@ if os.path.isfile('env.py'):
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-CSRF_TRUSTED_ORIGINS = ['https://8000-736b796e657-meetingnote-3zabhsx19nv.ws-eu106.gitpod.io', 'meeting-notes.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://8000-736b796e657-meetingnote-3zabhsx19nv.ws-eu106.gitpod.io', 'https://meeting-ci-notes.onrender.com/']
 LOGIN_REDIRECT_URL = "home"
 
 
