@@ -18,7 +18,7 @@ LOGIN_REDIRECT_URL = "home"
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEV")
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-736b796e657-meetingnote-3zabhsx19nv.ws-eu106.gitpod.io']
 
