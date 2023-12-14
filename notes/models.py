@@ -33,7 +33,7 @@ class Meeting(models.Model):
 class Note(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100, default="No particular topic")
+    title = models.CharField(max_length=100, default="Add a title")
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

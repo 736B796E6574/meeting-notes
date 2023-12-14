@@ -16,7 +16,7 @@ class NoteForm(forms.ModelForm):
         # Set placeholders and hide labels
         self.fields['meeting'].widget.attrs.update({'placeholder': 'Meeting'})
         self.fields['title'].widget.attrs.update({'placeholder': 'Title'})
-        self.fields['text'].widget.attrs.update({'placeholder': 'Text'})
+        self.fields['text'].widget.attrs.update({'placeholder': 'Please write some notes'})
 
         # Hide labels
         for field in self.fields:

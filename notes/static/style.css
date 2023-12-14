@@ -110,8 +110,72 @@ ul {
 
 h3 {
   color: #e84610;
+  font-size: 0.8em;
 }
 
 .notes__hr {
   border: 1px solid #32bbbb;
+}
+
+/* Style for all input fields */
+input[type="text"],
+input[type="datetime-local"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  background: #f1f1f1;
+}
+
+/* Add a border on focus */
+input[type="text"]:focus,
+input[type="datetime-local"]:focus,
+select:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Style for the submit button */
+
+/* Custom styles for dropdown */
+select {
+  -webkit-appearance: none; /* Removes default styling for select in Chrome */
+  -moz-appearance: none; /* Removes default styling for select in Firefox */
+  appearance: none; /* Removes default styling for select */
+  /* Add custom styles */
+  background: #f1f1f1;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Add a custom arrow indicator for select dropdown */
+select.custom-select {
+  background-image: url("path_to_arrow_image");
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+}
+
+/* Style for textarea fields */
+textarea {
+  width: 100%;
+  padding: 5px;
+  margin: 5px 0 22px 0;
+  border: 1px solid #ddd;
+  color: #fafafa !important;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+  background: #f1f1f1;
+  resize: vertical; /* Allows vertical resize, none to disable resize */
+}
+
+/* Add a border on focus */
+textarea:focus {
+  background-color: #ddd;
+  outline: none;
 }
