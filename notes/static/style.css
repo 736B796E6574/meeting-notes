@@ -179,3 +179,8 @@ textarea:focus {
   background-color: #ddd;
   outline: none;
 }
+
+textarea::placeholder {
+  color: black; /* Replace #yourColor with the color you want */
+  opacity: 1; /* Firefox lowers the opacity by default */
+}
